@@ -13,8 +13,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 
-import org.jboss.optaplanner.service.model.Task;
-import org.jboss.optaplanner.service.model.TaskStatus;
+import org.jboss.optaplanner.entities.Task;
+import org.jboss.optaplanner.entities.TaskStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +39,7 @@ public class OptaPlannerWebService {
 	@WebMethod
 	public long createTask(String text) throws Exception {
 		Task task = new Task();
-		task.setSource(text);
+		task.setXmlFile(text);
 		em.persist(task);
 
 		log.info(String.format("Stored new task with id %d.",

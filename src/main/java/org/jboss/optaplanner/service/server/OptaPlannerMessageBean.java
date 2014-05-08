@@ -10,8 +10,8 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import javax.persistence.EntityManager;
 
-import org.jboss.optaplanner.service.model.Task;
-import org.jboss.optaplanner.service.model.TaskStatus;
+import org.jboss.optaplanner.entities.Task;
+import org.jboss.optaplanner.entities.TaskStatus;
 import org.jboss.optaplanner.service.solver.ProblemSolver;
 import org.jboss.optaplanner.service.util.Util;
 import org.optaplanner.core.api.score.buildin.simple.SimpleScore;
@@ -64,7 +64,7 @@ public class OptaPlannerMessageBean implements MessageListener {
 
 				int score = Integer.MIN_VALUE;
 	
-				ProblemSolver p = new ProblemSolver(task.getSource());
+				ProblemSolver p = new ProblemSolver(task.getXmlFile());
 				p.execute();
 				while (p.isRunning() && TaskStatus.IN_PROGRESS.equals(task.getStatus())) {
 					try {
@@ -79,7 +79,7 @@ public class OptaPlannerMessageBean implements MessageListener {
 					
 					em.refresh(task);
 					
-					task.setEta(computeEta(score));
+					task.setETA(computeEta(score));
 					task.setProgress(computeProgress(score));
 
 					em.merge(task);
@@ -88,9 +88,9 @@ public class OptaPlannerMessageBean implements MessageListener {
 				
 				String result = Util.toXml(p.getBestSolution());
 
-				task.setEta(0);
+				task.setETA(0);
 				task.setProgress(100);
-				task.setSource(result);
+				task.setXmlFile(result);
 				task.setStatus(TaskStatus.COMPLETE);
 				
 				em.merge(task);
