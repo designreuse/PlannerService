@@ -27,7 +27,7 @@ public class OptaPlannerWebService {
 
 	@Resource(mappedName = "java:/ConnectionFactory")
 	private ConnectionFactory connectionFactory;
-	@Resource(mappedName = "java:/queue/Matches")
+	@Resource(mappedName = "java:/queue/OptaPlanner")
 	private Destination queue;
 	private Connection connection;
 
