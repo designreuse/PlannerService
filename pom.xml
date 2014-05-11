@@ -53,6 +53,11 @@
 			<artifactId>optaplanner-core</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>knowledge-api</artifactId>
+			<version>6.0.1.Final</version>
+		</dependency>
+		<dependency>
 			<groupId>org.optaplanner</groupId>
 			<artifactId>optaplanner-examples</artifactId>
 		</dependency>
