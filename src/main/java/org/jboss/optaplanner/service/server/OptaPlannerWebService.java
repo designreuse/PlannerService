@@ -12,6 +12,7 @@ import javax.jms.TextMessage;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.optaplanner.entities.Task;
 import org.jboss.optaplanner.entities.TaskStatus;
@@ -31,7 +32,7 @@ public class OptaPlannerWebService {
 	private Destination queue;
 	private Connection connection;
 
-	@Resource
+	@PersistenceContext
 	private EntityManager em;
 
 	private final Logger log = LoggerFactory.getLogger(OptaPlannerWebService.class);
