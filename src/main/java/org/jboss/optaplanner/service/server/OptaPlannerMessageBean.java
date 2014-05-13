@@ -1,6 +1,5 @@
 package org.jboss.optaplanner.service.server;
 
-import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJBException;
 import javax.ejb.MessageDriven;
@@ -9,6 +8,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.optaplanner.entities.Task;
 import org.jboss.optaplanner.entities.TaskStatus;
@@ -29,7 +29,7 @@ public class OptaPlannerMessageBean implements MessageListener {
 
 	private final Logger log = LoggerFactory.getLogger(OptaPlannerMessageBean.class);
 
-    @Resource
+	@PersistenceContext
     private EntityManager em;
 
     private int computeProgress(int score) {
