@@ -72,17 +72,19 @@ public class OptaPlannerMessageBean implements MessageListener {
 					} catch (InterruptedException e) {
 					} // do nothing
 
-					score = ((SimpleScore) p.getScore()).getScore();
-					if (log.isDebugEnabled()) {
-						log.debug("Best score so far: " + score);
-					}
+					if (p.getScore() != null) {
+						score = ((SimpleScore) p.getScore()).getScore();
+						if (log.isDebugEnabled()) {
+							log.debug("Best score so far: " + score);
+						}
 					
-					em.refresh(task);
+						em.refresh(task);
 					
-					task.setETA(computeEta(score));
-					task.setProgress(computeProgress(score));
+						task.setETA(computeEta(score));
+						task.setProgress(computeProgress(score));
 
-					em.merge(task);
+						em.merge(task);
+					}
 				}
 				p.stop();
 				
