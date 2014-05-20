@@ -57,7 +57,7 @@ public class OptaPlannerWebService {
 		
 		log.info(String.format("Paused task with it %d.", task.getId()));
 	}
-
+	
 	@WebMethod
 	public void startTask(long id) throws Exception {
 		try {

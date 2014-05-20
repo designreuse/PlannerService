@@ -36,7 +36,7 @@ public final class ProblemSolver {
 		@Override
 		public void run() {
 			final XmlSolverFactory configurer = new XmlSolverFactory();
-			configurer.configure(ProblemSolver.class.getResourceAsStream("/org/optaplanner/examples/nqueens/solver/nQueensSolverConfig.xml"));
+			configurer.configure(this.getClass().getResourceAsStream("/org/optaplanner/examples/nqueens/solver/nqueensSolverConfig.xml"));
 			solver = configurer.buildSolver();
 			solver.setPlanningProblem(getInitialSolution());
 			time = System.nanoTime();
