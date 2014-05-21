@@ -49,7 +49,7 @@ public class Util {
   }
 
   private static XStream getXStream() {
-    XStream xs = new XStream(new PureJavaReflectionProvider(new FieldDictionary(new NativeFieldKeySorter())));
+    XStream xs = new XStream();
     xs.setMode(XStream.ID_REFERENCES);
     xs.processAnnotations(NQueens.class);
 /*      xs.processAnnotations(Column.class);
