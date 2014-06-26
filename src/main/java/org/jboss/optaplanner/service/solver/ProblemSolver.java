@@ -1,5 +1,6 @@
 package org.jboss.optaplanner.service.solver;
 
+import java.io.StringReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 public final class ProblemSolver {
 
 	private final String xmlInput;
+	private final String solverConfig;
 	private final ExecutorService es = Executors.newCachedThreadPool();
 	private final Execution e;
 	private final Logger log = LoggerFactory.getLogger(ProblemSolver.class);
@@ -36,7 +38,7 @@ public final class ProblemSolver {
 		@Override
 		public void run() {
 			final XmlSolverFactory configurer = new XmlSolverFactory();
-			configurer.configure(this.getClass().getResourceAsStream("/org/optaplanner/examples/nqueens/solver/nqueensSolverConfig.xml"));
+			configurer.configure(new StringReader(solverConfig));
 			solver = configurer.buildSolver();
 			solver.setPlanningProblem(getInitialSolution());
 			time = System.nanoTime();
@@ -57,8 +59,9 @@ public final class ProblemSolver {
 		}
 	}
 
-	public ProblemSolver(String xmlInput) {
+	public ProblemSolver(String xmlInput, String solverConfig) {
 		this.xmlInput = xmlInput;
+		this.solverConfig = solverConfig;
 		System.setProperty("drools.lrUnlinkingEnabled", "true");
 		e = new Execution();
 	}

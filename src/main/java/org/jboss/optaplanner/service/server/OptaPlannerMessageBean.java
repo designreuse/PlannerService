@@ -64,7 +64,7 @@ public class OptaPlannerMessageBean implements MessageListener {
 
 				int score = Integer.MIN_VALUE;
 	
-				ProblemSolver p = new ProblemSolver(task.getXmlFile());
+				ProblemSolver p = new ProblemSolver(task.getXmlFile(), task.getType().getConfiguration());
 				p.execute();
 				while (p.isRunning() && TaskStatus.IN_PROGRESS.equals(task.getStatus())) {
 					try {
