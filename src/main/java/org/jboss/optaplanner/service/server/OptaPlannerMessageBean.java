@@ -78,7 +78,7 @@ public class OptaPlannerMessageBean implements MessageListener {
 							score = ((SimpleScore) p.getScore()).getScore();							
 						} else if (p.getScore() instanceof HardSoftScore) {
 							HardSoftScore hardSoftScore = (HardSoftScore) p.getScore();							
-							score = (int) Math.round(hardSoftScore.getHardScore() + hardSoftScore.getSoftScore() / 100.0); 
+							score = hardSoftScore.getHardScore() * 1000 + hardSoftScore.getSoftScore(); 
 						}
 						if (log.isDebugEnabled()) {
 							log.debug("Best score so far: " + score);
