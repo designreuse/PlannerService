@@ -15,6 +15,7 @@ import org.jboss.optaplanner.entities.TaskStatus;
 import org.jboss.optaplanner.service.solver.ProblemSolver;
 import org.jboss.optaplanner.service.util.Util;
 import org.optaplanner.core.api.score.buildin.simple.SimpleScore;
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,7 +74,12 @@ public class OptaPlannerMessageBean implements MessageListener {
 					} // do nothing
 
 					if (p.getScore() != null) {
-						score = ((SimpleScore) p.getScore()).getScore();
+						if (p.getScore() instanceof SimpleScore) {
+							score = ((SimpleScore) p.getScore()).getScore();							
+						} else if (p.getScore() instanceof HardSoftScore) {
+							HardSoftScore hardSoftScore = (HardSoftScore) p.getScore();							
+							score = (int) Math.round(hardSoftScore.getHardScore() + hardSoftScore.getSoftScore() / 100.0); 
+						}
 						if (log.isDebugEnabled()) {
 							log.debug("Best score so far: " + score);
 						}
